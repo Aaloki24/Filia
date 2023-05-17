@@ -1,0 +1,33 @@
+{% extends '_layout.html' %} 
+{% block body %} 
+
+<div class="body-community-profile-page">
+    <div class="container">
+        <div class="profile-container">
+            <!-- Use a default profile picture if the community does not have one -->
+            <img src="{{ url_for('static', filename=community.profile_path) if community.profile_path else '/static/profilepic.png' }}" alt="Profile Picture" class="profile-picture">
+            <span class="name">{{ community.name }}</span>
+            <button class="join-btn">Join</button>
+            <div class="stats">
+                <!-- Replace the hardcoded values with the actual community data -->
+                <span><strong>Posts</strong>{{ posts|length }}</span>
+                <span><strong>Followers</strong>{{ community.followers|length }}</span>
+                <span><strong>Following</strong>{{ community.following|length }}</span>
+            </div>
+            <div class="bio">
+                <p>{{ community.description }}</p>
+            </div>
+            <div class="line-divider"></div>
+            <!-- Add user's photos grid here -->
+        </div>
+        
+    </div>
+    <div class="gallery-container">
+        <!-- Display the community posts -->
+        {% for post in posts %}
+            <img src="{{ url_for('static', filename=post.photo_path) }}" alt="Gallery Image" />
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends '_layout.html' %}
+{% block body %}
+
+<div class="body-hp">
+    <header class="header-hp">
+        <div class="group-header-hp">{{ user.major }}</div>
+        <div class="nav-icons-hp profile-pic-hp">
+            <a href="#">
+                <img src="{{ url_for('static', filename=user.profile_path) }}" width="50" height="50">
+            </a>
+        </div>
+    </header>
+    <main class="main-hp">
+        {% for user, post in posts %}
+        <section class="post-hp">
+            <div class="post-header-hp">
+                <img src="{{ url_for('static', filename=user.profile_path) }}" alt="Post Image" class="post-image">
+                <h2>{{ user.username }}</h2>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <form method="POST" action="{{ url_for('delete_photo_post', post_id=post.id) }}" style="display:inline;">
+                            <button type="submit" class="dropdown-option">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete Post
+                            </button>
+                        </form>
+                        <a href="{{ url_for('edit_photo_post', post_id=post.id) }}" class="dropdown-option">
+                            <i class="fa fa-edit" aria-hidden="true"></i> Edit Post
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="post-content-hp">
+                <img src="{{ post.photo_path }}" alt="Post Image" class="post-image">
+                <p>{{ post.caption }}</p>
+            </div>
+            <div class="post-footer-hp">
+                <form method="POST" action="{{ url_for('like_post', post_id=post.id) }}" style="display:inline;">
+                    <button type="submit" class="btn-hp">
+                        {% if user in post.likes %}
+                        <i class="fa fa-thumbs-up fa-xl" aria-hidden="true" style="color:rgb(48, 112, 230);"></i>
+                        {% else %}
+                        <i class="fa fa-thumbs-up fa-xl" aria-hidden="true"></i>
+                        {% endif %}
+                        {{ post.likes|length }}
+                    </button>
+                </form>
+                <a href="{{ url_for('comment_page', post_id=post.id) }}" class="btn-hp">
+                    <i class="fa-solid fa-comment fa-xl"></i>
+                </a>
+            </div>
+        </section>
+        <br> 
+        {% endfor %}
+    </main>
+</div>
+
+{% endblock %}

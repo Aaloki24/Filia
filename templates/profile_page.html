@@ -1,0 +1,45 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+<div>
+  <div class="container-pp">
+    <div class="profile-pic-pp">
+      <img src="{{ url_for('static', filename = user.profile_path) }}" alt="Profile Picture" />
+    </div>
+    <div class="profile-info-pp">
+
+      <div class="username-pp">{{ user.username }}</div>
+      <a href="/view_edit_profile" ><button type="submit" class="btn btn-primary custom-btn" id="submit-btn">Edit Profile</button></a>
+      <div class="stats-pp">
+        <div>
+          <span>{{ num_posts }}</span> posts
+
+        </div>
+        <div>
+          <span>1,000</span> followers
+        </div>
+        <div>
+          <span>500</span> following
+        </div>
+      </div>
+      <div class="bio-pp">
+        <p>{{user['bio']}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="line-divider"></div>
+  <div class="gallery-container">
+    {% for post in profile_posts %}
+
+      <img src="{{post.photo_path}}" alt="Gallery Image" />
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
