@@ -82,17 +82,39 @@ body-comment-page {
 .comment-box {
     background-color: white;
     border-radius: 20px;
-    padding: 60px;
-    width: 80%;
+    padding: 200px;
+    width: 60%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin: auto;
-    margin-top: 8rem;
+    margin-top: 5rem;
     margin-bottom: 8rem;
+    margin-right: 200px;
+}
+
+.comment-heading { /* Added new style for the comment heading */
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 .photo {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500%;
+    max-height: 500%;
+}
+
+.submit-btn { /* Added new style for the submit button */
+    background-color: #BBD7FF;
+    color: black;
+    transition: background-color 0.3s ease;
+    border: none; /* Remove border */
+    cursor: pointer; /* Add pointer cursor */
+    margin-top: 10px; /* Move button down a little */
+    padding: 12px 24px; /* Increase button padding */
+    font-size: 20px; /* Increase font size */
+    border-radius: 15px; /* Adjust border radius */
+}
+.h3-comment-heading{
+    margin-top: 900px;
+
 }
 
 .comment-actions {
@@ -109,8 +131,6 @@ body-comment-page {
     margin-right: 10px;
     cursor: pointer;
 }
-
-
 
 /* community profile page*/
 body-community-profile-page {
@@ -587,7 +607,8 @@ border-bottom: 1px solid #ccc;
     padding: 40px;
     width: 700px;
     height: 450px;
-    margin: 150px;
+    margin: 100px;
+    margin-left: 300px;
     text-align: center;
     font-display: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

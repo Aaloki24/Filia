@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from src.models import db, FiliaUser, PhotoPost,  Community, Comment, post_comments
 from src.repositories.photo_post_repository import photo_post_repository_singleton
 from flask import jsonify
-from flask import Flask, abort, redirect, render_template, request, session, flash 
+from flask import Flask, abort, redirect, render_template, request, session, url_for 
 from src.repositories.comment_repository import comment_repository_singleton 
 from security import bcrypt
 import itsdangerous
@@ -439,7 +439,6 @@ def like_post(post_id):
     db.session.commit()
 
     return redirect(request.referrer or url_for('home'))
-
 @app.route('/comment_page/<int:post_id>')
 def comment_page(post_id):
     post_and_user = db.session.query(FiliaUser, PhotoPost).join(PhotoPost, FiliaUser.user_id == PhotoPost.user_id).filter(PhotoPost.id == post_id).first()
@@ -470,6 +469,16 @@ def add_comment(post_id):
 
             assoc = post_comments.insert().values(post_id=post_id, comment_id=new_comment.id)
             db.session.execute(assoc)
+            db.session.commit()
+            return redirect(url_for('comment_page', post_id=post_id)) 
+    return redirect(url_for('home'))
+
+@app.route('/delete_comment/<int:post_id>/<int:comment_id>', methods=['POST'])
+def delete_comment(post_id, comment_id):
+    comment = Comment.query.get(comment_id)
+    if comment:
+        if session['user']['user_id'] == comment.user_id:
+            db.session.delete(comment)
             db.session.commit()
             return redirect(url_for('comment_page', post_id=post_id)) 
     return redirect(url_for('home'))
