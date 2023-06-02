@@ -310,7 +310,7 @@ def create_photo_post():
         if photo_path.filename == '' or photo_path.filename.rsplit('.', 1)[1] not in ALLOWED_EXTENSIONS:
             abort(400)
 
-        # Save the photo to a directory on your server
+        # Save the photo to a directory on the server
         current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         photo_path.filename = secure_filename(f'{user_id}.{current_time}.{photo_path.filename.split(".")[-1]}')
         filename = secure_filename(photo_path.filename)
@@ -382,8 +382,6 @@ def show_photo_post():
 
 @app.post('/create_photo_post/<int:post_id>/edit')
 def edit_photo_post(post_id):
-    # auto fill the form with old comments
-    # Delete the post's photo from the file system
     photo_path = os.path.join(UPLOAD_FOLDER, os.path.basename(post.photo_path))
     if os.path.exists(photo_path):
         os.remove(photo_path)
@@ -498,7 +496,7 @@ def deleteprofpic():
         os.remove(profile_path)
 
     # Set the user's profile_path to None or a default picture
-    user.profile_path = None  # or set it to a default picture if you have one
+    user.profile_path = None 
     db.session.commit()
 
     return redirect(url_for('view_edit_profile'))
