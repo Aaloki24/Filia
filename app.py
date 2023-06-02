@@ -59,24 +59,8 @@ def index():
     else:
         # Fetch all PhotoPost records from the database
         posts = db.session.query(FiliaUser, PhotoPost).join(PhotoPost, FiliaUser.user_id == PhotoPost.user_id).all()
-
-        # You might want to pass the 'posts' variable to the template or use it in some other way.
-        # For example, you can pass it to the 'home_page' template
+        
         return render_template('/home_page.html', posts=posts)
-
-
-
-# def index():
-#     # del session['user']
-#     if 'user' not in session: 
-#         return render_template('/welcome_page.html')
-#     #Fetch all PhotoPost records from the database
-#     posts = db.session.query(FiliaUser, PhotoPost).join(PhotoPost, FiliaUser.user_id == PhotoPost.user_id).all()
-  
-#     if 'user' in session:
-#         return redirect('/home_page')
-#     return render_template('/welcome_page.html')
-
 
 @app.post('/welcome_page')
 def welcome_page():

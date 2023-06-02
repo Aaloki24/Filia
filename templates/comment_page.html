@@ -21,11 +21,14 @@
                     <strong>{{ comment.user.username }}:</strong> {{ comment.text }}
                     <div class="comment-actions">
                         <div class="reply-like">
-                            <span onclick="reply()">Reply</span> 
-                            <span onclick="like()">Like</span> <span id="likes-count">0</span> 
-                        </div>                        
+                            <span onclick="reply(this)">Reply</span>
+                            <span onclick="like()">Like</span> <span id="likes-count">0</span>
+                        </div> 
                         <a href="#">View all replies</a>
                     </div>
+                    <ul class="replies">
+
+                    </ul>
                 </div>
                 <hr>
                 {% endfor %}
@@ -50,7 +53,14 @@
     }
 
     function reply() {
-        alert('Reply button clicked. Implement functionality here.');
+        let replyText = prompt('Enter your reply:');
+    if (replyText) {
+        let commentDiv = replyButton.parentElement.parentElement;
+        let repliesList = commentDiv.querySelector('.replies');
+        let newReply = document.createElement('li');
+        newReply.textContent = replyText;
+        repliesList.appendChild(newReply);
+        }
     }
 </script>
 
